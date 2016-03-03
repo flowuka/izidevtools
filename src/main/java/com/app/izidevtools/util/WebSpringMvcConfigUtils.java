@@ -7,8 +7,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * @author Flow
+ * Classe permetant la configuration de certaine propriétés de spring.
  *
+ * @author Flow
  */
 @Configuration
 @EnableWebMvc

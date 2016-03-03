@@ -13,8 +13,9 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
- * @author Flow
+ * Classe utilitaire pour l'initialisation de l'application, remplace le xml
  *
+ * @author Flow
  */
 public class InitAppUtils implements WebApplicationInitializer {
 

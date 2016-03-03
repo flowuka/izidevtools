@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.app.izidevtools.metier.bean.UtilisateurDTO;
 import com.app.izidevtools.metier.service.UtilisateurService;
+import com.app.izidevtools.util.apptools.CryptageUtils;
 import com.app.izidevtools.vue.bean.LoginBean;
 import com.app.izidevtools.vue.ctrl.comp.UserDataSession;
 
@@ -65,7 +66,7 @@ public class LoginCtrl {
 		} else {
 
 			final UtilisateurDTO userDTO = utilisateurService.getUtilisateurByLoginEtMotDePasse(login.getLogin(),
-					login.getMotDePasse());
+					CryptageUtils.crypterMotDePasse(login.getMotDePasse()));
 
 			if (userDTO == null) {
 				bindingResult.rejectValue(null, "page.login.error.couple.non.trouve");
