@@ -1,0 +1,5 @@
+CREATE TABLE utilisateur (
+  id BIGINT(20) NOT NULL AUTO_INCREMENT,
+  login VARCHAR(255) NOT NULL,
+  motDePasse VARCHAR(255) NULL,
+  PRIMARY KEY (id));
