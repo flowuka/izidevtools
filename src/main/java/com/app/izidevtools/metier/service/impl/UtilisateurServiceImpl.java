@@ -36,7 +36,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 			output = new UtilisateurDTO();
 			output.setId(userRecup.getId());
 			output.setLogin(userRecup.getLogin());
-			output.setMotDePasse(userRecup.getMotDePasse());
 		}
 		return output;
 	}

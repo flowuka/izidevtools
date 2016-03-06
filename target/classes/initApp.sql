@@ -3,3 +3,30 @@ CREATE TABLE utilisateur (
   login VARCHAR(255) NOT NULL,
   motDePasse VARCHAR(255) NULL,
   PRIMARY KEY (id));
+
+CREATE TABLE typetodo (
+  id BIGINT(20) NOT NULL AUTO_INCREMENT,
+  libelle VARCHAR(255) NOT NULL,
+  dateCreation TIMESTAMP NOT NULL,
+  dateFin TIMESTAMP NULL,
+  PRIMARY KEY (id));
+
+CREATE TABLE todo (
+  id BIGINT(20) NOT NULL AUTO_INCREMENT,
+  libelle VARCHAR(255) NOT NULL,
+  description TEXT NULL,
+  dateCreation TIMESTAMP NOT NULL,
+  dateFin TIMESTAMP NULL,
+  PRIMARY KEY (`id`));
+
+ALTER TABLE todo
+ADD COLUMN idTypeTodo BIGINT(20) NULL AFTER dateFin;
+
+ALTER TABLE todo
+ADD INDEX `INDEX_TYPE_TODO` (idTypeTodo ASC);
+ALTER TABLE todo 
+ADD CONSTRAINT `fk_todo_typetodo`
+  FOREIGN KEY (idTypeTodo)
+  REFERENCES typetodo (id)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

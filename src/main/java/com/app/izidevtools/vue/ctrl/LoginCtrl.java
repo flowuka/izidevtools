@@ -1,5 +1,6 @@
 package com.app.izidevtools.vue.ctrl;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.app.izidevtools.metier.bean.UtilisateurDTO;
 import com.app.izidevtools.metier.service.UtilisateurService;
 import com.app.izidevtools.util.apptools.CryptageUtils;
 import com.app.izidevtools.vue.bean.LoginBean;
-import com.app.izidevtools.vue.ctrl.comp.UserDataSession;
 
 /**
  * Controler de la page de login.
@@ -29,11 +28,10 @@ public class LoginCtrl {
 	// @ALL
 	public static final String PAGE_NAME = "login";
 
+	public static final String SESSION_UTILISATEUR_CONNECTE = "LoginCtrl.SESSION_UTILISATEUR_CONNECTE";
+
 	// @HERE
 	private static final String LOGIN_BEAN = "loginBean";
-
-	@Autowired
-	private UserDataSession session;
 
 	@Autowired
 	private UtilisateurService utilisateurService;
@@ -44,10 +42,9 @@ public class LoginCtrl {
 	 * @return la vue
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView initLogin(final ModelMap modelMap) {
-		final ModelAndView model = new ModelAndView(PAGE_NAME);
-		model.addObject(LOGIN_BEAN, new LoginBean());
-		return model;
+	public String initLogin(final ModelMap modelMap) {
+		modelMap.put(LOGIN_BEAN, new LoginBean());
+		return PAGE_NAME;
 	}
 
 	/**
@@ -59,7 +56,7 @@ public class LoginCtrl {
 	 */
 	@RequestMapping(value = "/validate", method = RequestMethod.POST)
 	public String validationLogin(@Valid @ModelAttribute(LOGIN_BEAN) final LoginBean login,
-			final BindingResult bindingResult, final ModelMap modelMap) {
+			final BindingResult bindingResult, final ModelMap modelMap, final HttpSession session) {
 
 		if (bindingResult.hasErrors()) {
 			return PAGE_NAME;
@@ -72,7 +69,7 @@ public class LoginCtrl {
 				bindingResult.rejectValue(null, "page.login.error.couple.non.trouve");
 				return PAGE_NAME;
 			} else {
-				session.setUtilisateurConnecte(userDTO);
+				session.setAttribute(SESSION_UTILISATEUR_CONNECTE, userDTO);
 			}
 		}
 

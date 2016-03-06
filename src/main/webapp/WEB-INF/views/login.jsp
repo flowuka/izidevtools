@@ -22,8 +22,8 @@
 		<div class="login-box-body">
   			<p class="login-box-msg">Entrez vos identifiants...</p>
   			
-  			<spring:url value="/login/validate" var="userActionUrl" />
-			<form:form action="${userActionUrl}" method="post" modelAttribute="loginBean">
+  			<spring:url value="/login/validate" var="loginAction" />
+			<form:form action="${loginAction}" method="post" modelAttribute="loginBean">
 				<form:errors path="*" class="error" />
 				<div class="form-group has-feedback">
 					<form:input path="login" class="form-control" placeholder="Identifiant"/>

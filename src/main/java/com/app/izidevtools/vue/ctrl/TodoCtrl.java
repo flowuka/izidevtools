@@ -8,15 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * @author flow
- *
+ * @author Flow
  */
 @Controller
-@RequestMapping("/accueil")
-public class AccueilCtrl extends AbstractLoggedController {
+@RequestMapping("/todo")
+public class TodoCtrl extends AbstractLoggedController {
 
 	// @ALL
-	public static final String PAGE_NAME = "accueil";
+	public static final String PAGE_NAME = "todo";
 
 	/**
 	 * Méthode d'initialisation de la page.
