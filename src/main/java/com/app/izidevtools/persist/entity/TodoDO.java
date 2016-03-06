@@ -3,6 +3,7 @@
  */
 package com.app.izidevtools.persist.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -21,28 +22,41 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "todo")
-public class TodoDO {
+public class TodoDO implements Serializable {
+
+	private static final long serialVersionUID = -7171064382385151321L;
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
+	@Column(nullable = false)
 	private String libelle;
 
 	@Column
 	private String description;
 
-	@Column
+	@Column(nullable = false)
 	private Date dateCreation;
 
 	@Column
 	private Date dateFin;
 
+	@Column
+	private String commentaireFermeture;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idTypeTodo")
+	@JoinColumn(name = "idTypeTodo", nullable = false)
 	private TypeTodoDO typeTodo;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idCreateur", nullable = false)
+	private UtilisateurDO createur;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idUtilisateurFin")
+	private UtilisateurDO utilisateurFin;
 
 	/**
 	 * @return the id

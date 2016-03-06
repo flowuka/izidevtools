@@ -3,6 +3,8 @@
  */
 package com.app.izidevtools.persist.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,13 +21,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Utilisateur")
 @NamedQueries(value = {
-		@NamedQuery(name = UtilisateurDO.GET_UTILISATEUR_BY_LOGIN_MDP,
-				query = "select user from UtilisateurDO user "
-						+ "where user.login = :login "
-						+ "and user.motDePasse = :mdp")
-})
-public class UtilisateurDO {
-	
+		@NamedQuery(name = UtilisateurDO.GET_UTILISATEUR_BY_LOGIN_MDP, query = "select user from UtilisateurDO user "
+				+ "where user.login = :login " + "and user.motDePasse = :mdp") })
+public class UtilisateurDO implements Serializable {
+
+	private static final long serialVersionUID = 4630718350542372026L;
+
 	public static final String GET_UTILISATEUR_BY_LOGIN_MDP = "UtilisateurDO.GET_UTILISATEUR_BY_LOGIN_MDP";
 
 	@Id

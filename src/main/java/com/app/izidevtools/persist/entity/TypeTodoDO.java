@@ -3,6 +3,7 @@
  */
 package com.app.izidevtools.persist.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,25 +25,42 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "todo")
-public class TypeTodoDO {
+@Table(name = "typetodo")
+@NamedQueries(value = { @NamedQuery(name = TypeTodoDO.GET_TYPES_ACTIFS, query = "select type from TypeTodoDO type "
+		+ "where dateFin is null ") })
+public class TypeTodoDO implements Serializable {
+
+	private static final long serialVersionUID = 7181959884664488209L;
+
+	public static final String GET_TYPES_ACTIFS = "TypeTodoDO.GET_TYPES_ACTIFS";
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
+	@Column(nullable = false)
 	private String libelle;
 
-	@Column
+	@Column(nullable = false)
 	private Date dateCreation;
 
 	@Column
 	private Date dateFin;
 
-	@OneToMany(mappedBy = "todo", fetch = FetchType.LAZY)
+	@Column
+	private String commentaireFermeture;
+
+	@OneToMany(mappedBy = "typeTodo", fetch = FetchType.LAZY)
 	private List<TodoDO> todos;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idCreateur", nullable = false)
+	private UtilisateurDO createur;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idUtilisateurFin")
+	private UtilisateurDO utilisateurFin;
 
 	/**
 	 * @return the dateCreation
@@ -113,6 +135,51 @@ public class TypeTodoDO {
 	 */
 	public void setTodos(final List<TodoDO> todos) {
 		this.todos = todos;
+	}
+
+	/**
+	 * @return the commentaireFermeture
+	 */
+	public String getCommentaireFermeture() {
+		return commentaireFermeture;
+	}
+
+	/**
+	 * @param commentaireFermeture
+	 *            the commentaireFermeture to set
+	 */
+	public void setCommentaireFermeture(final String commentaireFermeture) {
+		this.commentaireFermeture = commentaireFermeture;
+	}
+
+	/**
+	 * @return the createur
+	 */
+	public UtilisateurDO getCreateur() {
+		return createur;
+	}
+
+	/**
+	 * @param createur
+	 *            the createur to set
+	 */
+	public void setCreateur(final UtilisateurDO createur) {
+		this.createur = createur;
+	}
+
+	/**
+	 * @return the utilisateurFin
+	 */
+	public UtilisateurDO getUtilisateurFin() {
+		return utilisateurFin;
+	}
+
+	/**
+	 * @param utilisateurFin
+	 *            the utilisateurFin to set
+	 */
+	public void setUtilisateurFin(final UtilisateurDO utilisateurFin) {
+		this.utilisateurFin = utilisateurFin;
 	}
 
 }

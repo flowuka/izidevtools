@@ -3,6 +3,8 @@
  */
 package com.app.izidevtools.vue.bean;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -12,7 +14,9 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @author Flow
  */
-public class LoginBean {
+public class LoginBean implements Serializable {
+
+	private static final long serialVersionUID = -1538581784340235217L;
 
 	@NotEmpty
 	private String login;

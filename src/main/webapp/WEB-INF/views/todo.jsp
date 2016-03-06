@@ -32,28 +32,20 @@
 		
 			<section class="content">
 				<div class="row">
-    				<div class="col-md-4">
-      					<div class="box box-solid box-primary">
-        					<div class="box-header">
-          						<h3 class="box-title">TODO général</h3>
-        					</div>
-        					<div class="box-body">
-          						The body of the box
-        					</div>
-      					</div>
-    				</div>
-    				
-    				<div class="col-md-4">
-      					<div class="box box-solid box-primary">
-        					<div class="box-header">
-          						<h3 class="box-title">Primary Solid Box Example</h3>
-        					</div>
-       						<div class="box-body">
-          						The body of the box
-        					</div>
-      					</div>
-    				</div>
-    				
+					<c:forEach var="item" items="${todoBean.listeTypeTodos}">
+						<div class="col-md-4">
+	      					<div class="box box-solid box-primary">
+	        					<div class="box-header">
+	          						<h3 class="box-title">${item.libelle}</h3>
+	        					</div>
+	        					<div class="box-body">
+	        						<c:forEach var="item2" items="${item2.listeTodos}">
+										${item2.libelle}	        						
+	        						</c:forEach>
+	        					</div>
+	      					</div>
+	    				</div>						
+					</c:forEach>
   				</div>
       		</section>
       		
